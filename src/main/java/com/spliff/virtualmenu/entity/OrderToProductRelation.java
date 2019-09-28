@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "ORDER_TO_PRODUCT_RELATION")
 public class OrderToProductRelation {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne

@@ -9,6 +9,7 @@ import java.util.Set;
 @Table(name = "PRODUCT")
 public class Product {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "name")
