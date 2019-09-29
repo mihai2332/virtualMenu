@@ -1,9 +1,16 @@
 package com.spliff.virtualmenu.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ORDER_TO_PRODUCT_RELATION")
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderToProductRelation {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -16,28 +23,4 @@ public class OrderToProductRelation {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 }
