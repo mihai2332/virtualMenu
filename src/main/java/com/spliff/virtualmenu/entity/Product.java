@@ -27,6 +27,9 @@ public class Product {
     @Column(name = "price")
     private Integer price;
 
+    @Column(name = "price_vat")
+    private Integer priceWithVAT;
+
     @Column(name = "picture_path")
     private String picturePath;
 
