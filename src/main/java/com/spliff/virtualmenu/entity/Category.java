@@ -18,6 +18,9 @@ public class Category {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "hasPicture")
+    private Boolean hasPicture;
+
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
     @JsonIgnore
@@ -65,5 +68,13 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Boolean getHasPicture() {
+        return hasPicture;
+    }
+
+    public void setHasPicture(Boolean hasPicture) {
+        this.hasPicture = hasPicture;
     }
 }

@@ -21,6 +21,9 @@ public class Product {
     @Column(name = "price")
     private Integer price;
 
+    @Column(name = "hasPicture")
+    private Boolean hasPicture;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "category_id")
@@ -76,5 +79,13 @@ public class Product {
 
     public void setOrderToProductRelations(Set<OrderToProductRelation> orderToProductRelations) {
         this.orderToProductRelations = orderToProductRelations;
+    }
+
+    public Boolean getHasPicture() {
+        return hasPicture;
+    }
+
+    public void setHasPicture(Boolean hasPicture) {
+        this.hasPicture = hasPicture;
     }
 }
