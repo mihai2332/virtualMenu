@@ -1,9 +1,6 @@
 package com.spliff.virtualmenu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,9 +8,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ORDERS")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Order {
     @Id
     private String uuid;
@@ -30,4 +24,44 @@ public class Order {
     @OneToMany(mappedBy = "order")
     @JsonIgnore
     private Set<OrderToProductRelation> orderToProductRelations;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getTotalPriceWithVAT() {
+        return totalPriceWithVAT;
+    }
+
+    public void setTotalPriceWithVAT(Integer totalPriceWithVAT) {
+        this.totalPriceWithVAT = totalPriceWithVAT;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Set<OrderToProductRelation> getOrderToProductRelations() {
+        return orderToProductRelations;
+    }
+
+    public void setOrderToProductRelations(Set<OrderToProductRelation> orderToProductRelations) {
+        this.orderToProductRelations = orderToProductRelations;
+    }
 }

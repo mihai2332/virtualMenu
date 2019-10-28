@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -22,10 +24,21 @@ public class ProductService {
     CategoryRepo categoryRepo;
     @Autowired
     RestaurantRepo restaurantRepo;
+    @Autowired
+    CategoryService categoryService;
 
     public Set<Product> getAllProductsFromCategory(Integer categoryId) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
         Set<Product> products = productRepo.findAllByCategory(category);
+        return products;
+    }
+
+    public Set<Product> getAllProducts(String restaurantUUID) {
+        Set<Category> categories = categoryService.getAllCategories(restaurantUUID);
+        Set<Product> products = new HashSet<>();
+        for (Category category : categories) {
+            products.addAll(getAllProductsFromCategory(category.getId()));
+        }
         return products;
     }
 }
