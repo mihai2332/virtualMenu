@@ -19,6 +19,10 @@ public class Restaurant {
     @JsonIgnore
     private Set<Category> categories;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Product> products;
+
     public String getUuid() {
         return uuid;
     }
@@ -41,5 +45,13 @@ public class Restaurant {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

@@ -27,10 +27,18 @@ public class Product {
     @Column(name = "picture_path")
     private String picturePath;
 
+    @Column(name = "active")
+    private Boolean isActive;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
@@ -98,5 +106,21 @@ public class Product {
 
     public void setOrderToProductRelations(Set<OrderToProductRelation> orderToProductRelations) {
         this.orderToProductRelations = orderToProductRelations;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }
