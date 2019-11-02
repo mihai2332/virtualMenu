@@ -55,4 +55,15 @@ public class ProductService {
         product.setCategory(category);
         return productRepo.save(product);
     }
+
+    public void attachPicture(Integer id, byte[] image) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        product.setPicture(image);
+        productRepo.save(product);
+    }
+
+    public byte[] getPicture(Integer id) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        return product.getPicture();
+    }
 }

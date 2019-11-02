@@ -24,8 +24,8 @@ public class Product {
     @Column(name = "price_vat")
     private Integer priceWithVAT;
 
-    @Column(name = "picture_path")
-    private String picturePath;
+    @Column(name = "picture")
+    private byte[] picture;
 
     @Column(name = "active")
     private Boolean isActive;
@@ -84,12 +84,12 @@ public class Product {
         this.priceWithVAT = priceWithVAT;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public byte[] getPicture() {
+        return picture;
     }
 
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 
     public Category getCategory() {
