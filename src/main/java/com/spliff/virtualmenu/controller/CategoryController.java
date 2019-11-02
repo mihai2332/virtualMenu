@@ -23,7 +23,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity getAllCategories(@PathVariable(name = "id") Integer categoryId) {
+    public ResponseEntity getAllProductsFromCategory(@PathVariable(name = "id") Integer categoryId) {
         Set<Product> products = productService.getAllProductsFromCategory(categoryId);
         return ResponseEntity.ok(products);
     }

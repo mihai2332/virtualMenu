@@ -31,7 +31,7 @@ public class Product {
     private Boolean isActive;
 
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     @JoinColumn(name = "category_id")
     private Category category;
 
