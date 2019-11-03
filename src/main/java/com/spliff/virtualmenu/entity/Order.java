@@ -3,6 +3,7 @@ package com.spliff.virtualmenu.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,6 +25,11 @@ public class Order {
     @OneToMany(mappedBy = "order")
     @JsonIgnore
     private Set<OrderToProductRelation> orderToProductRelations;
+
+    @ManyToOne
+    @JoinColumn(name = "ORDERING_TABLE_ID")
+    @JsonIgnore
+    private OrderingTable orderingTable;
 
     public String getUuid() {
         return uuid;
@@ -63,5 +69,13 @@ public class Order {
 
     public void setOrderToProductRelations(Set<OrderToProductRelation> orderToProductRelations) {
         this.orderToProductRelations = orderToProductRelations;
+    }
+
+    public OrderingTable getOrderingTable() {
+        return orderingTable;
+    }
+
+    public void setOrderingTable(OrderingTable orderingTable) {
+        this.orderingTable = orderingTable;
     }
 }

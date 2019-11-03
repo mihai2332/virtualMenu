@@ -1,8 +1,10 @@
 package com.spliff.virtualmenu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spliff.virtualmenu.entity.authModel.User;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
@@ -21,7 +23,15 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
+    private Set<OrderingTable> orderingTables;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Product> products;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<User> users;
 
     public String getUuid() {
         return uuid;
@@ -53,5 +63,21 @@ public class Restaurant {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<OrderingTable> getOrderingTables() {
+        return orderingTables;
+    }
+
+    public void setOrderingTables(Set<OrderingTable> orderingTables) {
+        this.orderingTables = orderingTables;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
