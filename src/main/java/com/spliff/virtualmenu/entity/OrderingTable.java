@@ -23,7 +23,6 @@ public class OrderingTable {
 
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
-    @JsonIgnore
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "orderingTable", cascade = CascadeType.ALL, orphanRemoval = true)
