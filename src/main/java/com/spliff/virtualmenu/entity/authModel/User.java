@@ -1,6 +1,7 @@
 package com.spliff.virtualmenu.entity.authModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spliff.virtualmenu.entity.Restaurant;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -48,6 +49,10 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "RESTAURANT_ID")
+    private Restaurant restaurant;
 
     public User() {
     }
@@ -107,4 +112,11 @@ public class User {
         this.roles = roles;
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }

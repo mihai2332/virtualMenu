@@ -9,11 +9,13 @@ public class JwtResponse {
     private String type = "Bearer";
     private String username;
     private Collection<? extends GrantedAuthority> authorities;
+    private String restaurantUUID;
 
-    public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities) {
+    public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities, String restaurantUUID) {
         this.token = accessToken;
         this.username = username;
         this.authorities = authorities;
+        this.restaurantUUID = restaurantUUID;
     }
 
     public String getAccessToken() {
@@ -42,5 +44,33 @@ public class JwtResponse {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public String getRestaurantUUID() {
+        return restaurantUUID;
+    }
+
+    public void setRestaurantUUID(String restaurantUUID) {
+        this.restaurantUUID = restaurantUUID;
     }
 }

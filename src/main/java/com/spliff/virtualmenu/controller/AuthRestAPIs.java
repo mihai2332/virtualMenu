@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.InvalidParameterException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,8 +56,9 @@ public class AuthRestAPIs {
 
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new InvalidParameterException("User not found"));
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities(), user.getRestaurant().getUuid()));
     }
 
     @PostMapping("/signup")
