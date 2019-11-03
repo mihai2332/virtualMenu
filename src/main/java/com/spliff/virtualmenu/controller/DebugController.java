@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DebugController {
     @GetMapping(value = "")
     public ResponseEntity getString() {
-        return ResponseEntity.ok("hello world");
+        return ResponseEntity.ok("hello stefan");
     }
 }
