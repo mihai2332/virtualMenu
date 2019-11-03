@@ -13,10 +13,13 @@ public class OrderingTable {
     private Integer id;
 
     @Column(name = "number")
-    private Integer number;
+    private Integer tableNumber;
 
     @Column(name = "reserved")
     private Boolean reserved;
+
+    @Column(name = "seats")
+    private Integer seats;
 
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
@@ -35,12 +38,12 @@ public class OrderingTable {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getTableNumber() {
+        return tableNumber;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setTableNumber(Integer tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public Boolean getReserved() {
@@ -65,5 +68,13 @@ public class OrderingTable {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public Integer getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Integer seats) {
+        this.seats = seats;
     }
 }
