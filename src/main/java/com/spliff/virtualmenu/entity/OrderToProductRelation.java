@@ -2,6 +2,8 @@ package com.spliff.virtualmenu.entity;
 
 
 import javax.persistence.*;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "ORDER_TO_PRODUCT_RELATION")

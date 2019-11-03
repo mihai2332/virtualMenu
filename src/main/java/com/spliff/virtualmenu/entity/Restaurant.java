@@ -3,6 +3,7 @@ package com.spliff.virtualmenu.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,10 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Category> categories;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<OrderingTable> orderingTables;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
@@ -53,5 +58,13 @@ public class Restaurant {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<OrderingTable> getOrderingTables() {
+        return orderingTables;
+    }
+
+    public void setOrderingTables(Set<OrderingTable> orderingTables) {
+        this.orderingTables = orderingTables;
     }
 }

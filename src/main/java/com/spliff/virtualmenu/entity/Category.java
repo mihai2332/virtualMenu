@@ -3,6 +3,7 @@ package com.spliff.virtualmenu.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
