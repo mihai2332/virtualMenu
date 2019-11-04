@@ -69,4 +69,14 @@ public class ProductService {
         Product product = productRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
         return product.getPicture();
     }
+
+    public Product editProduct(ProductDTO productDTO) {
+        Category category = null;
+        if(productDTO.category != null)
+            category = categoryRepo.findById(productDTO.category).orElseThrow(() -> new IllegalArgumentException("Category not found"));
+        Product product = productRepo.findById(productDTO.id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        modelMapper.map(productDTO, product);
+        product.setCategory(category);
+        return productRepo.save(product);
+    }
 }

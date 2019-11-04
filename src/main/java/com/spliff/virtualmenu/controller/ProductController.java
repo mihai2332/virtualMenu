@@ -34,6 +34,12 @@ public class ProductController {
         return ResponseEntity.ok().body(product);
     }
 
+    @PutMapping()
+    public ResponseEntity editProduct(@RequestBody ProductDTO productDTO) {
+        Product product = productService.editProduct(productDTO);
+        return ResponseEntity.ok().body(product);
+    }
+
     @PostMapping("/{id}/upload")
     public ResponseEntity mainImageUpload(@RequestParam("image") MultipartFile imageFile,
                                           @PathVariable Integer id) {
