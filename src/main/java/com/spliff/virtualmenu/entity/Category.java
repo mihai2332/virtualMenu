@@ -19,8 +19,8 @@ public class Category {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "picture_path")
-    private String picturePath;
+    @Column(name = "picture")
+    private byte[] picture;
 
     @ManyToOne
     @JoinColumn(name = "RESTAURANT_ID")
@@ -55,14 +55,6 @@ public class Category {
         this.description = description;
     }
 
-    public String getPicturePath() {
-        return picturePath;
-    }
-
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -77,5 +69,13 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 }

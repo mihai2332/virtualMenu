@@ -4,6 +4,7 @@ import com.spliff.virtualmenu.entity.Product;
 import com.spliff.virtualmenu.entity.dto.ProductDTO;
 import com.spliff.virtualmenu.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +41,14 @@ public class ProductController {
         return ResponseEntity.ok().body(product);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteProduct(@PathVariable Integer id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{id}/upload")
-    public ResponseEntity mainImageUpload(@RequestParam("image") MultipartFile imageFile,
+    public ResponseEntity productImageUpload(@RequestParam("image") MultipartFile imageFile,
                                           @PathVariable Integer id) {
         if (imageFile.isEmpty()) {
             return ResponseEntity.badRequest().build();

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -56,6 +57,7 @@ public class ProductService {
         product.setName(productDTO.name);
         product.setPrice(productDTO.price);
         product.setCategory(category);
+        product.setRestaurant(category.getRestaurant());
         return productRepo.save(product);
     }
 
@@ -78,5 +80,11 @@ public class ProductService {
         modelMapper.map(productDTO, product);
         product.setCategory(category);
         return productRepo.save(product);
+    }
+
+    @Transactional
+    public void deleteProduct( Integer productId) {
+        Product product = productRepo.findById(productId).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        productRepo.delete(product);
     }
 }
