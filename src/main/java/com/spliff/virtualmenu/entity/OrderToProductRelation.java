@@ -20,6 +20,18 @@ public class OrderToProductRelation {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    public OrderToProductRelation() {
+    }
+
+    public OrderToProductRelation(Product product, Order order, Integer quantity) {
+        this.product = product;
+        this.order = order;
+        this.quantity = quantity;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -42,5 +54,13 @@ public class OrderToProductRelation {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
