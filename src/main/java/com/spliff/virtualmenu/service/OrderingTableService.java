@@ -1,5 +1,6 @@
 package com.spliff.virtualmenu.service;
 
+import com.spliff.virtualmenu.config.kafka.KafkaProducer;
 import com.spliff.virtualmenu.entity.*;
 import com.spliff.virtualmenu.entity.dto.OrderDTO;
 import com.spliff.virtualmenu.repository.*;
@@ -21,6 +22,8 @@ public class OrderingTableService {
     ProductRepo productRepo;
     @Autowired
     OrderToProductRelationRepo relationRepo;
+    @Autowired
+    KafkaProducer producer;
 
     public Set<OrderingTable> getAllTables(String restaurantUUID) {
         Restaurant restaurant = restaurantRepo.findByUuid(restaurantUUID).orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
@@ -40,5 +43,6 @@ public class OrderingTableService {
             totalPrice.set(totalPrice.get() + item.quantity * product.getPrice());
             relationRepo.save(new OrderToProductRelation(product, order, item.quantity));
         });
+        producer.sendMessage("orders", "sper sa mearge");
     }
 }
