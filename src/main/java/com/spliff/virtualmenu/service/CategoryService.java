@@ -1,7 +1,6 @@
 package com.spliff.virtualmenu.service;
 
 import com.spliff.virtualmenu.entity.Category;
-import com.spliff.virtualmenu.entity.Product;
 import com.spliff.virtualmenu.entity.Restaurant;
 import com.spliff.virtualmenu.entity.dto.CategoryDTO;
 import com.spliff.virtualmenu.repository.CategoryRepo;
@@ -18,21 +17,20 @@ import java.util.Set;
 
 @Service
 public class CategoryService {
-    private Logger logger = LoggerFactory.getLogger(CategoryService.class);
-
     @Autowired
     CategoryRepo categoryRepo;
     @Autowired
     RestaurantRepo restaurantRepo;
     @Autowired
     ModelMapper modelMapper;
+    private Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
     public Set<Category> getAllCategories(String restaurantUUID) {
         Restaurant restaurant = restaurantRepo.findByUuid(restaurantUUID).orElseThrow(() -> new EmptyResultDataAccessException(1));
         return categoryRepo.findAllByRestaurant(restaurant);
     }
 
-    public Category createCategory(CategoryDTO dto) {
+    public Category addCategory(CategoryDTO dto) {
         Restaurant restaurant = restaurantRepo.findByUuid(dto.restaurantUUID).orElseThrow(() -> new EmptyResultDataAccessException(1));
         Category category = new Category();
         modelMapper.map(dto, category);
@@ -48,6 +46,7 @@ public class CategoryService {
         return categoryRepo.save(category);
     }
 
+    @Transactional
     public void deleteCategory(Integer id) {
         Category category = categoryRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Category not found"));
         categoryRepo.delete(category);

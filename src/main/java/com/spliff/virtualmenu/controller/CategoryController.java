@@ -3,7 +3,6 @@ package com.spliff.virtualmenu.controller;
 import com.spliff.virtualmenu.entity.Category;
 import com.spliff.virtualmenu.entity.Product;
 import com.spliff.virtualmenu.entity.dto.CategoryDTO;
-import com.spliff.virtualmenu.entity.dto.ProductDTO;
 import com.spliff.virtualmenu.service.CategoryService;
 import com.spliff.virtualmenu.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Set;
 
@@ -33,8 +31,8 @@ public class CategoryController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity createCategory(@RequestBody CategoryDTO dto) {
-        Category category = categoryService.createCategory(dto);
+    public ResponseEntity addCategory(@RequestBody CategoryDTO dto) {
+        Category category = categoryService.addCategory(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(category);
     }
 
