@@ -22,6 +22,9 @@ public class Order {
     @Column(name = "order_date")
     private Date orderDate;
 
+    @Column(name = "status")
+    private STATUS status;
+
     @OneToMany(mappedBy = "order")
     @JsonIgnore
     private Set<OrderToProductRelation> orderToProductRelations;
@@ -82,10 +85,27 @@ public class Order {
         this.orderingTable = orderingTable;
     }
 
+    public Integer getTotalPriceWithoutVAT() {
+        return totalPriceWithoutVAT;
+    }
+
+    public void setTotalPriceWithoutVAT(Integer totalPriceWithoutVAT) {
+        this.totalPriceWithoutVAT = totalPriceWithoutVAT;
+    }
+
+    public STATUS getStatus() {
+        return status;
+    }
+
+    public void setStatus(STATUS status) {
+        this.status = status;
+    }
+
     public static class Builder {
         private String uuid;
         private Integer totalPrice;
         private Integer totalPriceWithoutVAT;
+        private STATUS status;
         private Date orderDate;
         private Set<OrderToProductRelation> orderToProductRelations;
         private OrderingTable orderingTable;
@@ -105,6 +125,11 @@ public class Order {
             return this;
         }
 
+        public Builder status(STATUS status) {
+            this.status = status;
+            return this;
+        }
+
         public Order build() {
             Order order = new Order();
             order.setUuid(UUID.randomUUID().toString());
@@ -112,6 +137,7 @@ public class Order {
             order.totalPrice = this.totalPrice;
             order.orderingTable = this.orderingTable;
             order.orderToProductRelations = this.orderToProductRelations;
+            order.status = this.status;
             return order;
         }
     }

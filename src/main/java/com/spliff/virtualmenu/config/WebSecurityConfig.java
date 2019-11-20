@@ -64,6 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/product/**",
                         "/product/{\\d+}/upload",
                         "/table",
+                        "/ws",
+                        "/ws/**",
                         "/table/{\\d+}"
                 ).permitAll()
                 .anyRequest().authenticated()

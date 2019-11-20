@@ -1,6 +1,7 @@
 package com.spliff.virtualmenu.service;
 
 import com.spliff.virtualmenu.config.kafka.KafkaProducer;
+import com.spliff.virtualmenu.controller.OrderController;
 import com.spliff.virtualmenu.entity.*;
 import com.spliff.virtualmenu.entity.dto.OrderDTO;
 import com.spliff.virtualmenu.repository.*;
@@ -36,6 +37,7 @@ public class OrderingTableService {
         OrderingTable orderingTable = tableRepo.findById(orderDTO.tableId).orElseThrow(() -> new IllegalArgumentException("Table not found"));
         Order order = orderRepo.save(new Order.Builder()
                 .totalPrice(totalPrice.get())
+                .status(STATUS.WAITING_FOR_ACCEPTANCE)
                 .orderingTable(orderingTable)
                 .build());
         orderDTO.orderedItems.forEach(item -> {
@@ -43,6 +45,10 @@ public class OrderingTableService {
             totalPrice.set(totalPrice.get() + item.quantity * product.getPrice());
             relationRepo.save(new OrderToProductRelation(product, order, item.quantity));
         });
-        producer.sendMessage("orders", "sper sa mearge");
+        producer.sendMessage("orders", order.getUuid());
+    }
+
+    public Set<Order> getWFA_Orders() {
+        return orderRepo.findAllByStatus(STATUS.WAITING_FOR_ACCEPTANCE);
     }
 }
