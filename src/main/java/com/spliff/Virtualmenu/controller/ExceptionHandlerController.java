@@ -2,6 +2,7 @@ package com.spliff.Virtualmenu.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.naming.ServiceUnavailableException;
+import org.hibernate.exception.ConstraintViolationException;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -77,5 +80,23 @@ public class ExceptionHandlerController {
             LOGGER.error("ERROR_CAUSED_BY", causedBy);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity handleConstraintViolationException(ConstraintViolationException ex) {
+        LOGGER.error("ConstraintViolationException: ", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        LOGGER.error("DataIntegrityViolationException: ", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex) {
+        LOGGER.error("SQLIntegrityConstraintViolationException: ", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }
