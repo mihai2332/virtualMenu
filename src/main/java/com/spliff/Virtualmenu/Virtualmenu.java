@@ -1,13 +1,13 @@
-package com.spliff.virtualmenu;
+package com.spliff.Virtualmenu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VirtualmenuApplication {
+public class Virtualmenu {
 
     public static void main(String[] args) {
-        SpringApplication.run(VirtualmenuApplication.class, args);
+        SpringApplication.run(Virtualmenu.class, args);
     }
 
 }

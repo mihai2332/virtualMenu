@@ -1,4 +1,4 @@
-package com.spliff.virtualmenu.controller;
+package com.spliff.Virtualmenu.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

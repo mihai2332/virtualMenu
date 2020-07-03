@@ -1,4 +1,4 @@
-package com.spliff.virtualmenu;
+package com.spliff.Virtualmenu;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
