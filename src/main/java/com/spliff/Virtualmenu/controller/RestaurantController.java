@@ -6,6 +6,7 @@ import com.spliff.Virtualmenu.entity.Product;
 import com.spliff.Virtualmenu.service.CategoryService;
 import com.spliff.Virtualmenu.service.OrderingTableService;
 import com.spliff.Virtualmenu.service.ProductService;
+import com.spliff.Virtualmenu.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,13 @@ public class RestaurantController {
     ProductService productService;
     @Autowired
     OrderingTableService tableService;
+    @Autowired
+    RestaurantService restaurantService;
+
+    @GetMapping(value = "/{uuid}")
+    public ResponseEntity getRestaurantByUUID(@PathVariable(name = "uuid") String restaurantUUID) {
+        return ResponseEntity.ok(restaurantService.getRestaurantBy(restaurantUUID));
+    }
 
     @GetMapping(value = "/{uuid}/category")
     public ResponseEntity getAllCategories(@PathVariable(name = "uuid") String restaurantUUID) {
