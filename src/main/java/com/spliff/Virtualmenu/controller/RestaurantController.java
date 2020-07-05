@@ -46,6 +46,12 @@ public class RestaurantController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping(value = "/{uuid}/product/{id}")
+    public ResponseEntity getAllProducts(@PathVariable(name = "uuid") String restaurantUUID, @PathVariable(name = "id") Integer productId) {
+        Product product = productService.getProductFromId(productId, restaurantUUID);
+        return ResponseEntity.ok(product);
+    }
+
     @GetMapping(value = "/{uuid}/table")
     public ResponseEntity getAllTables(@PathVariable(name = "uuid") String restaurantUUID) {
         Set<OrderingTable> tables = tableService.getAllTables(restaurantUUID);

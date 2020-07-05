@@ -4,6 +4,7 @@ import com.spliff.Virtualmenu.entity.*;
 import com.spliff.Virtualmenu.entity.dto.OrderDTO;
 import com.spliff.Virtualmenu.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -30,11 +31,13 @@ public class OrderingTableService {
     public void addOrder(OrderDTO orderDTO) {
         AtomicReference<Integer> totalPrice = new AtomicReference<>();
         totalPrice.set(0);
+        Restaurant restaurant = restaurantRepo.findByUuid(orderDTO.restaurantUUID).orElseThrow(() -> new EmptyResultDataAccessException(1));
         OrderingTable orderingTable = tableRepo.findById(orderDTO.tableId).orElseThrow(() -> new IllegalArgumentException("Table not found"));
         Order order = orderRepo.save(new Order.Builder()
                 .totalPrice(totalPrice.get())
-                .status(STATUS.WAITING_FOR_ACCEPTANCE)
+                .status(ORDER_STATUS.WAITING_FOR_ACCEPTANCE)
                 .orderingTable(orderingTable)
+                .restaurant(restaurant)
                 .build());
         orderDTO.orderedItems.forEach(item -> {
             Product product = productRepo.findById(item.productId).orElseThrow(() -> new IllegalArgumentException("Product not found"));
@@ -43,7 +46,8 @@ public class OrderingTableService {
         });
     }
 
-    public Set<Order> getWFA_Orders() {
-        return orderRepo.findAllByStatus(STATUS.WAITING_FOR_ACCEPTANCE);
+    public Set<Order> getWFA_OrdersByRestaurant(String restaurantUUID) {
+        Restaurant restaurant = restaurantRepo.findByUuid(restaurantUUID).orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+        return orderRepo.findAllByRestaurantAndOrderStatus(restaurant, ORDER_STATUS.WAITING_FOR_ACCEPTANCE);
     }
 }

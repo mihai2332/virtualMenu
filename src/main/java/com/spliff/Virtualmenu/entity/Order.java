@@ -23,16 +23,18 @@ public class Order {
     private Date orderDate;
 
     @Column(name = "status")
-    private STATUS status;
+    private ORDER_STATUS orderStatus;
 
     @OneToMany(mappedBy = "order")
-    @JsonIgnore
     private Set<OrderToProductRelation> orderToProductRelations;
 
     @ManyToOne
     @JoinColumn(name = "ORDERING_TABLE_ID")
-    @JsonIgnore
     private OrderingTable orderingTable;
+
+    @ManyToOne
+    @JoinColumn(name = "RESTAURANT_ID")
+    private Restaurant restaurant;
 
     private Order() {
     }
@@ -85,6 +87,10 @@ public class Order {
         this.orderingTable = orderingTable;
     }
 
+    public Restaurant getRestaurant() { return restaurant; }
+
+    private void setRestaurant(Restaurant restaurant) {this.restaurant = restaurant;}
+
     public Integer getTotalPriceWithoutVAT() {
         return totalPriceWithoutVAT;
     }
@@ -93,22 +99,23 @@ public class Order {
         this.totalPriceWithoutVAT = totalPriceWithoutVAT;
     }
 
-    public STATUS getStatus() {
-        return status;
+    public ORDER_STATUS getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(STATUS status) {
-        this.status = status;
+    public void setOrderStatus(ORDER_STATUS orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public static class Builder {
         private String uuid;
         private Integer totalPrice;
         private Integer totalPriceWithoutVAT;
-        private STATUS status;
+        private ORDER_STATUS orderStatus;
         private Date orderDate;
         private Set<OrderToProductRelation> orderToProductRelations;
         private OrderingTable orderingTable;
+        private Restaurant restaurant;
 
         public Builder totalPrice(Integer totalPrice) {
             this.totalPrice = totalPrice;
@@ -125,8 +132,13 @@ public class Order {
             return this;
         }
 
-        public Builder status(STATUS status) {
-            this.status = status;
+        public Builder status(ORDER_STATUS orderStatus) {
+            this.orderStatus = orderStatus;
+            return this;
+        }
+
+        public Builder restaurant(Restaurant restaurant){
+            this.restaurant = restaurant;
             return this;
         }
 
@@ -137,7 +149,8 @@ public class Order {
             order.totalPrice = this.totalPrice;
             order.orderingTable = this.orderingTable;
             order.orderToProductRelations = this.orderToProductRelations;
-            order.status = this.status;
+            order.orderStatus = this.orderStatus;
+            order.restaurant = this.restaurant;
             return order;
         }
     }
