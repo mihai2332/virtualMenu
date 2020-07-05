@@ -13,4 +13,5 @@ public class OrderDTO {
 
     public List<OrderedItem> orderedItems;
     public Integer tableId;
+    public String restaurantUUID;
 }

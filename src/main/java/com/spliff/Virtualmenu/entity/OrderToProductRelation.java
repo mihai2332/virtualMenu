@@ -1,6 +1,8 @@
 package com.spliff.Virtualmenu.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 
@@ -18,6 +20,7 @@ public class OrderToProductRelation {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 
     @Column(name = "quantity")

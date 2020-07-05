@@ -38,6 +38,11 @@ public class ProductService {
         return products;
     }
 
+    public Product getProductFromId(Integer productId, String restaurantUUID) {
+        Restaurant restaurant = restaurantRepo.findByUuid(restaurantUUID).orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+        return productRepo.findByIdAndRestaurant(productId, restaurant).orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
+    }
+
     public Set<Product> getAllProducts(String restaurantUUID) {
         Restaurant restaurant = restaurantRepo.findByUuid(restaurantUUID).orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
         return productRepo.findAllByRestaurant(restaurant);
